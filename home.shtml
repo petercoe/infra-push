@@ -1,0 +1,10 @@
+<head>
+  <title>Hello Bonobos</title>
+</head>
+<html>
+  <body>
+    <h1>Hello World</p>
+    <!-- <!--#include virtual="host.txt" --> -->
+    <!-- <!--#echo var="DATE_LOCAL" --> -->
+  </body>
+</html>
