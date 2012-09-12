@@ -1,23 +1,33 @@
 infra-push
 ============
 
-#
-# Installation recipe for creating hosting environment from scratch.
-#
-git clone https://github.com/petercoe/infra-push.git
-cd into infra-push
-download and extract into infra-push http://s3.amazonaws.com/ec2-downloads/ec2-api-tools.zip EC2 api tools
-download and extract into infra-push http://ec2-downloads.s3.amazonaws.com/ElasticLoadBalancing.zip - Elastic Load Balancer utilities
-update setvariables.{csh,sh} with any updated paths (Java, EC2 version etc)
-source setvariables.{csh,sh}
-create-keypair.sh <Keyname>
-ec2-authorize default -p 22
-ec2-authorize default -p 80
-create-instances.sh <Keyname> <number of hosts>
+General usage: 
+
+Once code is in place (see below for recipe), use create-keypair.sh to generate a keypair.  Code is written so that the hostnames and loadbalancer name are keyed off the keypair name.  This way we can manage multiple clusters with the same code, just changing the keypair name on the command line. 
+
+Once the keypair is created, use create-instances.sh <keyname> [hostcount] to create the ec2 instances.  keyname is required, and hostcount defaults to 4 if not specified.
 
 Once loadbalancer is initialized, all hosts should be available behind elb.  index.html is untouched, 
 test file is pushed to servers as http://<host>/home.html.  File is created from home.shtml and pushed
 as part of initialization process. File has hostname inserted in an html comment.
+
+Arbitary code can be pushed out to the servers using push-prod.sh <keyname> <file>.
+
+=============
+
+    #
+    # Installation recipe for creating hosting environment from scratch.
+    #
+    git clone https://github.com/petercoe/infra-push.git
+    cd infra-push
+    # download and extract into infra-push http://s3.amazonaws.com/ec2-downloads/ec2-api-tools.zip EC2 api tools
+    # download and extract into infra-push http://ec2-downloads.s3.amazonaws.com/ElasticLoadBalancing.zip - Elastic Load Balancer utilities
+    # update setvariables.{csh,sh} with any updated paths (Java, EC2 version etc)
+    # source setvariables.{csh,sh}
+    create-keypair.sh <Keyname>
+    ec2-authorize default -p 22
+    ec2-authorize default -p 80
+    create-instances.sh <Keyname> <number of hosts>
 
 Code can be commited back into git tree by usual git commands.
 ============
