@@ -41,7 +41,7 @@ createInstance()
     #
     sed "s%HOSTNAME%${Hostname}%g" < home.shtml > home.html
     scp -p -i ${HOME}/.ssh/${Keyname}.pem home.html ubuntu@${Hostname}:/var/www
-    echo ${Instance} ${Hostname} >> hosts.txt
+    echo ${Instance} ${Hostname} >> ${Keyname}-hosts.txt
     echo "${Keyname}-${Host} - ${Hostname} Complete"
 }
 
@@ -70,7 +70,7 @@ fi
 
 loadBalancer=${Keyname}
 Host=1
-cat /dev/null > hosts.txt
+cat /dev/null > ${Keyname}-hosts.txt
 rm -f home.html
 
 #
@@ -85,7 +85,7 @@ done
 #
 # Create the Elastic Load Balancer
 #
-instanceIds=`cat hosts.txt | sed -e's% .*%,%'`
+instanceIds=`cat ${Keyname}-hosts.txt | sed -e's% .*%,%'`
 loadBalancerDNSName=`elb-create-lb ${loadBalancer} --region us-west-1 --availability-zones us-west-1a,us-west-1b --listener "protocol=http,lb-port=80,instance-port=80" | sed 's%.* %%'`
 
 #
@@ -100,7 +100,7 @@ echo elb-describe-instance-health --region us-west-1 --headers --lb ${loadBalanc
 echo "Loadbalancer ready"
 echo "Hosts:"
 
-for host in `cat hosts.txt | sed -e's%.* %%'`
+for host in `cat ${Keyname}-hosts.txt | sed -e's%.* %%'`
 do
     echo "\t${host}"
 done
