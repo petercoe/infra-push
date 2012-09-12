@@ -1,7 +1,7 @@
-Create Amazon instance using apache2-ubuntu image (ami-43ddf806)
-Create LoadBalancer
-
-ssh -i ~/.ssh/bonoboskey.pem ubuntu@ec2-50-18-72-220.us-west-1.compute.amazonaws.com
-ssh -i ~/.ssh/bonoboskey.pem ubuntu@ec2-50-18-85-161.us-west-1.compute.amazonaws.com
-ssh -i ~/.ssh/bonoboskey.pem ubuntu@ec2-50-18-16-148.us-west-1.compute.amazonaws.com
-ssh -i ~/.ssh/bonoboskey.pem ubuntu@ec2-184-169-226-9.us-west-1.compute.amazonaws.com
+download EC2 api tools
+download http://aws.amazon.com/developertools/2536 - Elastic Load Balancer utilities
+source setvariables
+create-keypair.sh bonobos
+ec2-authorize default -p 22
+ec2-authorize default -p 80
+ec2-run-instances ami-43ddf806 --instance-type t1.micro --region us-west-1 -k bonobos.keypair

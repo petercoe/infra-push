@@ -4,7 +4,7 @@
 <html>
   <body>
     <h1>Hello World</p>
-    <!-- <!--#include virtual="host.txt" --> -->
-    <!-- <!--#echo var="DATE_LOCAL" --> -->
+    HOSTNAME
+    <!-- HOSTNAME -->
   </body>
 </html>
