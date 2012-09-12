@@ -1,9 +1,12 @@
 #
 # Recipe for creating hosting environment from scratch.
 #
-download http://s3.amazonaws.com/ec2-downloads/ec2-api-tools.zip EC2 api tools
-download http://aws.amazon.com/developertools/2536 - Elastic Load Balancer utilities
-source setvariables
+git clone https://github.com/petercoe/infra-push.git
+cd into infra-push
+download and extract into infra-push http://s3.amazonaws.com/ec2-downloads/ec2-api-tools.zip EC2 api tools
+download and extract into infra-push http://ec2-downloads.s3.amazonaws.com/ElasticLoadBalancing.zip - Elastic Load Balancer utilities
+update setvariables.{csh,sh} with any updated paths (Java, EC2 version etc)
+source setvariables.{csh,sh}
 create-keypair.sh <Keyname>
 ec2-authorize default -p 22
 ec2-authorize default -p 80
