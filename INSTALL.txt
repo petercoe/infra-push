@@ -11,3 +11,7 @@ create-keypair.sh <Keyname>
 ec2-authorize default -p 22
 ec2-authorize default -p 80
 create-instances.sh <Keyname> <number of hosts>
+
+Once loadbalancer is initialized, all hosts should be available behind elb.  index.html is untouched, 
+test file is pushed to servers as http://<host>/home.html.  File is created from home.shtml and pushed
+as part of initialization process. File has hostname inserted in an html comment.
